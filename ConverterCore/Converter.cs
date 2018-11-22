@@ -96,11 +96,22 @@ namespace OpenEQ.ConverterCore {
 					}
 				}
 
-				foreach(var lf in wlds.First(x => x.Filename == "lights.wld").GetFragments<Fragment28>()) {
-					var light = lf.Fragment;
-					var sl = light.Reference.Value.Reference.Value;
-					zone.Add(new OESLight(light.Pos, sl.Color, light.Radius, sl.Attenuation ?? 200));
-				}
+                var lights = wlds.FirstOrDefault(x => x.Filename == "lights.wld");
+                if(lights != null)
+                {
+                    var fragments = lights.GetFragments<Fragment28>();
+                    if (fragments != null && fragments.Count() > 0)
+                    {
+                        foreach (var lf in fragments)
+                        {
+                            var light = lf.Fragment;
+                            var sl = light.Reference.Value.Reference.Value;
+                            zone.Add(new OESLight(light.Pos, sl.Color, light.Radius, sl.Attenuation ?? 200));
+                        }
+                    }
+                }
+
+
 
 				OESFile.Write(zip.CreateEntry("main.oes", CompressionLevel.Optimal).Open(), zone);
 			}
