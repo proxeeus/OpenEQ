@@ -1,0 +1,7 @@
+from the converterapp directory, dotnet run /path/to/eq name where name is gfaydark and gfaydark_chr (one after the other)
+
+
+dotnet run c:\users\proxeeus\desktop\perso\everquest gfaydark
+dotnet run c:\users\proxeeus\desktop\perso\everquest gfaydark_chr
+
+and so on...
